@@ -50,8 +50,10 @@ export class GameScene extends Scene {
     console.log("Character loaded:", this.characterData);
     console.log("Using sprite:", spriteKey);
 
-    // Configurar câmera para seguir o player
-    this.cameras.main.startFollow(this.player, true);
+    // Configurar câmera para seguir o player de forma fixa
+    this.cameras.main.startFollow(this.player, true, 1, 1);
+    this.cameras.main.setLerp(1); // Remove suavização
+    this.cameras.main.setDeadzone(0, 0); // Remove zona morta
     this.cameras.main.setZoom(1);
 
     // Configurar teclas de movimento
