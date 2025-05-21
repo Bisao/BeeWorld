@@ -12,7 +12,7 @@ export class SimpleLoginScene extends Scene {
       .setOrigin(0, 0);
     
     // Logo do jogo
-    const titleText = this.add.text(this.cameras.main.width / 2, 140, "Heartwood", {
+    const titleText = this.add.text(this.cameras.main.width / 2, 140, "Bee World", {
       fontFamily: "MedievalSharp",
       fontSize: "72px",
       color: "#a67c00",
@@ -30,17 +30,6 @@ export class SimpleLoginScene extends Scene {
       strokeThickness: 2,
       shadow: { offsetX: 2, offsetY: 2, color: "#000000", blur: 3, fill: true }
     }).setOrigin(0.5);
-    
-    // Decoração - espada
-    const sword = this.add.graphics();
-    sword.fillStyle(0xaaaaaa, 1);
-    sword.fillRect(this.cameras.main.width / 2 - 5, 220, 10, 40);
-    sword.fillStyle(0xcccccc, 1);
-    sword.fillTriangle(
-      this.cameras.main.width / 2 - 20, 220,
-      this.cameras.main.width / 2 + 20, 220,
-      this.cameras.main.width / 2, 205
-    );
     
     // Botão Play (principal)
     new SimpleButton(
