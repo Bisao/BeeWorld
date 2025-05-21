@@ -55,6 +55,7 @@ export class GameScene extends Scene {
           'grass-texture'
         );
         tile.setDisplaySize(this.gridSize, this.gridSize);
+        tile.setDepth(0); // Base layer
         
         // Gerar recursos aleatoriamente
         this.resourceTypes.forEach(resource => {
@@ -65,7 +66,7 @@ export class GameScene extends Scene {
               resource.key
             );
             resourceSprite.setDisplaySize(this.gridSize * 0.8, this.gridSize * 0.8);
-            resourceSprite.setDepth(1);
+            resourceSprite.setDepth(2); // Above grass, below player
             this.resources.push(resourceSprite);
           }
         });
@@ -82,7 +83,7 @@ export class GameScene extends Scene {
     this.player = this.add.sprite(centerX, centerY, spriteKey);
     this.player.setOrigin(0.5);
     this.player.setScale(this.gridSize / this.player.width); // Ajustar escala para corresponder ao tamanho do tile
-    this.player.setDepth(1); // Garantir que o player fique sobre o grid
+    this.player.setDepth(3); // Garantir que o player fique sobre os recursos e o grid
     
     console.log("Character loaded:", this.characterData);
     console.log("Using sprite:", spriteKey);
