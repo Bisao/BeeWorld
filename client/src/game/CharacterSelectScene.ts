@@ -208,9 +208,10 @@ export class CharacterSelectScene extends Scene {
       infoText.setOrigin(0.5, 0.5);
       
       // Make the entry interactive usando zona retangular
-      const hitZone = this.add.zone(0, yOffset, 240, 70)
+      const hitZone = this.add.rectangle(0, yOffset, 240, 70)
         .setOrigin(0.5)
-        .setInteractive();
+        .setInteractive({ useHandCursor: true })
+        .setFillStyle(0x000000, 0); // Transparente
       
       hitZone.on('pointerdown', () => {
         this.selectCharacter(index);
@@ -295,7 +296,12 @@ export class CharacterSelectScene extends Scene {
     );
     playText.setOrigin(0.5);
     
-    playButton.setInteractive({ useHandCursor: true })
+    playButton.setInteractive(new Phaser.Geom.Rectangle(
+      this.cameras.main.width / 2 - 100,
+      400,
+      200,
+      50
+    ), Phaser.Geom.Rectangle.Contains)
       .on('pointerdown', () => {
         if (this.characters.length > 0) {
           const selectedCharacter = this.characters[this.selectedCharacterIndex];
