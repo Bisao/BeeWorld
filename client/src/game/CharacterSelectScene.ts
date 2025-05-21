@@ -210,12 +210,20 @@ export class CharacterSelectScene extends Scene {
       // Make the entry interactive usando zona retangular
       const hitZone = this.add.rectangle(0, yOffset, 240, 70)
         .setOrigin(0.5)
-        .setInteractive({ useHandCursor: true })
+        .setInteractive()
         .setFillStyle(0x000000, 0); // Transparente
       
       hitZone.on('pointerdown', () => {
         this.selectCharacter(index);
         console.log(`Selected character: ${character.name}`);
+      });
+      
+      hitZone.on('pointerover', () => {
+        hitZone.setFillStyle(0xffffff, 0.1);
+      });
+      
+      hitZone.on('pointerout', () => {
+        hitZone.setFillStyle(0x000000, 0);
       });
       
       // Add all elements to the container
