@@ -111,8 +111,7 @@ export class PreloadScene extends Scene {
   rgbToHex(color: number): string {
     return "#" + color.toString(16).padStart(6, "0");
   }
-
-  private createResourceTexture(name: string, color: number) {
+}
     const size = 32;
     const texture = this.textures.createCanvas(name, size, size);
     const context = texture.getContext();
