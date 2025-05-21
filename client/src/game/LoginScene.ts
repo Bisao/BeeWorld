@@ -12,14 +12,14 @@ export class LoginScene extends Scene {
     // Background
     const background = this.add.tileSprite(0, 0, this.cameras.main.width, this.cameras.main.height, "wood-panel");
     background.setOrigin(0, 0);
-    background.setTint(0x444444);
+    background.setTint(0x222222);
     
     // Main content container
     const mainContainer = this.add.container(0, 0);
     
     // Game title
     const gameTitle = this.add.image(this.cameras.main.width / 2, 160, "game-title");
-    gameTitle.setScale(0.8);
+    gameTitle.setScale(0.6);
     
     // Create the login panel
     this.createLoginPanel();
@@ -217,7 +217,11 @@ export class LoginScene extends Scene {
   private setupButtonInteraction(button: Phaser.GameObjects.Container, callback: () => void) {
     const buttonBg = button.getAt(0) as Phaser.GameObjects.Image;
     
-    buttonBg.setInteractive({ useHandCursor: true });
+    // Fix the hitAreaCallback error
+    buttonBg.setInteractive({ 
+      useHandCursor: true,
+      pixelPerfect: false
+    });
     
     buttonBg.on("pointerover", () => {
       button.setScale(button.scale * 1.05);

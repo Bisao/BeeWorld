@@ -9,14 +9,13 @@ export class PreloadScene extends Scene {
     // Background and UI elements
     this.load.image("wood-panel", "/textures/wood.jpg");
     this.load.image("grass-texture", "/textures/grass.png");
-    this.load.image("game-title", "/src/assets/game-title.svg");
-    this.load.image("apple-icon", "/src/assets/apple-icon.svg");
-    this.load.image("google-icon", "/src/assets/google-icon.svg");
-    this.load.image("discord-icon", "/src/assets/discord-icon.svg");
+    this.load.image("game-title", "/assets/game-title.png");
+    this.load.image("apple-icon", "/assets/apple-icon.svg");
+    this.load.image("google-icon", "/assets/google-icon.svg");
+    this.load.image("discord-icon", "/assets/discord-icon.svg");
     
-    // Button sprites (generated via sprite factory)
-    this.load.spritesheet("button-green", "data:image/png;base64,FAKE_DATA", { frameWidth: 190, frameHeight: 49 });
-    this.load.spritesheet("button-gold", "data:image/png;base64,FAKE_DATA", { frameWidth: 190, frameHeight: 49 });
+    // Load sound for button clicks
+    this.load.audio("click", "/sounds/hit.mp3");
     
     // Load button sprite factory
     this.load.image("pixel", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
@@ -38,23 +37,47 @@ export class PreloadScene extends Scene {
     const buttonTexture = this.textures.createCanvas(name, width, height);
     const context = buttonTexture.getContext();
     
-    // Button background
+    // Button background with rounded corners
     context.fillStyle = this.rgbToHex(fillColor);
-    context.fillRect(0, 0, width, height);
+    this.roundRect(context, 0, 0, width, height, 10, true, false);
     
-    // Button border
+    // Button border with rounded corners
     context.strokeStyle = this.rgbToHex(borderColor);
     context.lineWidth = 4;
-    context.strokeRect(2, 2, width - 4, height - 4);
+    this.roundRect(context, 2, 2, width - 4, height - 4, 8, false, true);
     
     // Button highlight (top)
+    context.save();
+    context.clip();
     const gradient = context.createLinearGradient(0, 0, 0, height * 0.4);
     gradient.addColorStop(0, "rgba(255, 255, 255, 0.3)");
     gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
     context.fillStyle = gradient;
     context.fillRect(4, 4, width - 8, height * 0.4);
+    context.restore();
     
     buttonTexture.refresh();
+  }
+  
+  // Helper to draw rounded rectangles
+  roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number, fill: boolean, stroke: boolean) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    if (fill) {
+      ctx.fill();
+    }
+    if (stroke) {
+      ctx.stroke();
+    }
   }
   
   // Helper to convert RGB to hex
