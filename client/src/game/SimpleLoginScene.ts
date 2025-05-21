@@ -60,7 +60,7 @@ export class SimpleLoginScene extends Scene {
       0x76c442, // verde
       () => {
         console.log("Play button clicked");
-        this.scene.start("CharacterCreateScene");
+        this.scene.start("SimpleCharacterCreateScene");
       },
       1.2
     );
