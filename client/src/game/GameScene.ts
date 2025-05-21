@@ -22,7 +22,20 @@ export class GameScene extends Scene {
   }
 
   create() {
-    // Criar grid visual para debug
+    // Criar grid com textura de grama
+    const gridSize = 20;
+    for (let i = 0; i < gridSize; i++) {
+      for (let j = 0; j < gridSize; j++) {
+        const tile = this.add.sprite(
+          i * this.gridSize + this.gridSize/2,
+          j * this.gridSize + this.gridSize/2,
+          'grass-texture'
+        );
+        tile.setDisplaySize(this.gridSize, this.gridSize);
+      }
+    }
+
+    // Criar linhas do grid
     this.createGrid();
 
     // Criar player no centro do grid
@@ -30,10 +43,8 @@ export class GameScene extends Scene {
     const centerY = (10 * this.gridSize);
     this.player = this.add.sprite(centerX, centerY, this.characterData.sprite || 'warrior-character');
     this.player.setOrigin(0.5);
-    this.player.setScale(1);
-
-    // Configurar o fundo para ser mais claro
-    this.cameras.main.setBackgroundColor('#e0e0e0');
+    this.player.setScale(2); // Aumentar escala para melhor visibilidade
+    this.player.setDepth(1); // Garantir que o player fique sobre o grid
 
     // Configurar câmera para seguir o player
     this.cameras.main.startFollow(this.player, true);
@@ -76,18 +87,20 @@ export class GameScene extends Scene {
 
   private createGrid() {
     const graphics = this.add.graphics();
-    graphics.lineStyle(1, 0x00ff00, 0.3);
+    graphics.lineStyle(2, 0x000000, 0.2);
 
     // Criar linhas do grid
-    for (let i = 0; i < 20; i++) {
+    const gridSize = 20;
+    for (let i = 0; i <= gridSize; i++) {
       // Linhas verticais
       graphics.moveTo(i * this.gridSize, 0);
-      graphics.lineTo(i * this.gridSize, 20 * this.gridSize);
+      graphics.lineTo(i * this.gridSize, gridSize * this.gridSize);
       // Linhas horizontais
       graphics.moveTo(0, i * this.gridSize);
-      graphics.lineTo(20 * this.gridSize, i * this.gridSize);
+      graphics.lineTo(gridSize * this.gridSize, i * this.gridSize);
     }
     graphics.strokePath();
+    graphics.setDepth(1); // Garantir que as linhas fiquem sobre a grama
   }
 
   private movePlayer(dx: number, dy: number) {
