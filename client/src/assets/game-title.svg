@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <style>
+    @font-face {
+      font-family: 'MedievalSharp';
+      font-style: normal;
+      font-weight: 400;
+      src: url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+    }
+    .title {
+      font-family: 'MedievalSharp', serif;
+      font-size: 120px;
+      font-weight: bold;
+      fill: #a67c00;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .subtitle {
+      font-family: 'MedievalSharp', serif;
+      font-size: 80px;
+      fill: #ffdd00;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .leaf {
+      fill: #76c442;
+    }
+    .sword {
+      fill: #aaaaaa;
+    }
+  </style>
+  
+  <g transform="translate(10, 100)">
+    <!-- Title -->
+    <text x="400" y="0" class="title" text-anchor="middle">Heartwood</text>
+    
+    <!-- Subtitle -->
+    <text x="400" y="80" class="subtitle" text-anchor="middle">Online</text>
+    
+    <!-- Decorative Leaves -->
+    <path class="leaf" d="M320,5 C330,-5 335,-10 345,-5 C350,0 350,10 345,15 C340,20 330,18 325,10 Z" />
+    <path class="leaf" d="M480,5 C470,-5 465,-10 455,-5 C450,0 450,10 455,15 C460,20 470,18 475,10 Z" />
+    <path class="leaf" d="M375,0 C380,-8 390,-10 395,-5 C400,0 400,8 395,12 C390,16 380,12 375,0 Z" />
+    <path class="leaf" d="M425,0 C420,-8 410,-10 405,-5 C400,0 400,8 405,12 C410,16 420,12 425,0 Z" />
+    
+    <!-- Decorative Sword -->
+    <rect class="sword" x="395" y="40" width="10" height="100" />
+    <polygon class="sword" points="370,40 430,40 400,25" />
+  </g>
+</svg>
