@@ -24,16 +24,14 @@ export class PreloadScene extends Scene {
     this.load.image("mage-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     this.load.image("priest-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     
-    const defaultTexture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAgklEQVR42mNgGAWjYBSMAqoCRkZGBiYmJgZmZmYGFhYWBjY2NgYODg4Gbm5uBj4+PgZBQUEGMTExBkkpaQY5eQUGFVV1Bk0tHQY9fUMGI2MTBgtLKwYHRycGN3dPBh9fPwb/gECG0LBwhpjYOIbklFSGzKwchvzCIoaSsvJRDxgFgxsAAKeDEWpHktChAAAAAElFTkSuQmCC";
-    
-    // Load tree sprites with default texture for now
+    // Load tree sprites
     ["tree1", "tree2", "tree3", "tree4", "tree5", "pine1", "pine2", "bush1", "bush2", "bush3"].forEach(key => {
-        this.load.image(key, defaultTexture);
+        this.load.image(key, `/textures/trees/${key}.png`);
     });
     
-    // Load stone variations with default texture for now
+    // Load stone variations
     Array.from({length: 9}, (_, i) => `stone${i + 1}`).forEach(key => {
-        this.load.image(key, defaultTexture);
+        this.load.image(key, `/textures/stones/${key}.png`);
     });
     
     // Class icons
