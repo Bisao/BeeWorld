@@ -1,0 +1,42 @@
+Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+_app-2d1d3b263a6f24de.js:38 FocusLock: focus-fighting detected. Only one focus management system could be active. See https://github.com/theKashey/focus-lock/#focus-fighting
+(anonymous) @ _app-2d1d3b263a6f24de.js:38
+_app-2d1d3b263a6f24de.js:38 [LaunchDarkly] Closing stream connection
+_app-2d1d3b263a6f24de.js:38 [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/62b35a865152ab14c5942820/eyJrZXkiOiI0Mjk1NDk4NCIsImtpbmQiOiJ1c2VyIiwibmFtZSI6ImJlYXI2NDQzMyIsInJvbGVzIjpbImludGVudF9wZXJzb25hbCJdLCJlbWFpbCI6ImJlYXI2NDQzM0Bkb3R1cC5uZXQiLCJ0aW1lX2NyZWF0ZWQiOjE3NDc4MTc1NzAwMjEsIl9tZXRhIjp7InByaXZhdGVBdHRyaWJ1dGVzIjpbImVtYWlsIl19fQ
+framework-af1c2fa620a8288c.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-af1c2fa620a8288c.js:1
+framework-af1c2fa620a8288c.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
