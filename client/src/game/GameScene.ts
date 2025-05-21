@@ -25,10 +25,15 @@ export class GameScene extends Scene {
     // Criar grid visual para debug
     this.createGrid();
 
-    // Criar player
-    this.player = this.add.sprite(this.gridSize, this.gridSize, 'warrior-character');
+    // Criar player no centro do grid
+    const centerX = (10 * this.gridSize); // Centro do grid (20x20)
+    const centerY = (10 * this.gridSize);
+    this.player = this.add.sprite(centerX, centerY, this.characterData.sprite || 'warrior-character');
     this.player.setOrigin(0.5);
-    this.player.setScale(0.5);
+    this.player.setScale(1);
+
+    // Configurar o fundo para ser mais claro
+    this.cameras.main.setBackgroundColor('#e0e0e0');
 
     // Configurar câmera para seguir o player
     this.cameras.main.startFollow(this.player, true);
