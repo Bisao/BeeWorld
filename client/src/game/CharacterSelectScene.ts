@@ -210,11 +210,7 @@ export class CharacterSelectScene extends Scene {
       // Make the entry interactive usando zona retangular
       const hitZone = this.add.rectangle(0, yOffset, 240, 70)
         .setOrigin(0.5)
-        .setInteractive({ 
-          hitArea: new Phaser.Geom.Rectangle(-120, -35, 240, 70),
-          hitAreaCallback: Phaser.Geom.Rectangle.Contains,
-          useHandCursor: true
-        })
+        .setInteractive(new Phaser.Geom.Rectangle(-120, -35, 240, 70), Phaser.Geom.Rectangle.Contains)
         .setFillStyle(0x000000, 0); // Transparente
       
       hitZone.on('pointerdown', () => {
