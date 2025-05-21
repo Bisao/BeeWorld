@@ -25,27 +25,27 @@ export class PreloadScene extends Scene {
     this.load.image("priest-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     
     // Load tree sprites
-    this.load.image("tree1", "/textures/trees/tree1.png");
-    this.load.image("tree2", "/textures/trees/tree2.png");
-    this.load.image("tree3", "/textures/trees/tree3.png");
-    this.load.image("tree4", "/textures/trees/tree4.png");
-    this.load.image("tree5", "/textures/trees/tree5.png");
-    this.load.image("pine1", "/textures/trees/pine1.png");
-    this.load.image("pine2", "/textures/trees/pine2.png");
-    this.load.image("bush1", "/textures/trees/bush1.png");
-    this.load.image("bush2", "/textures/trees/bush2.png");
-    this.load.image("bush3", "/textures/trees/bush3.png");
+    this.load.image("tree1", "textures/trees/tree1.png");
+    this.load.image("tree2", "textures/trees/tree2.png");
+    this.load.image("tree3", "textures/trees/tree3.png");
+    this.load.image("tree4", "textures/trees/tree4.png");
+    this.load.image("tree5", "textures/trees/tree5.png");
+    this.load.image("pine1", "textures/trees/pine1.png");
+    this.load.image("pine2", "textures/trees/pine2.png");
+    this.load.image("bush1", "textures/trees/bush1.png");
+    this.load.image("bush2", "textures/trees/bush2.png");
+    this.load.image("bush3", "textures/trees/bush3.png");
     
     // Load stone variations
-    this.load.image("stone1", "/textures/stones/stone1.png");
-    this.load.image("stone2", "/textures/stones/stone2.png");
-    this.load.image("stone3", "/textures/stones/stone3.png");
-    this.load.image("stone4", "/textures/stones/stone4.png");
-    this.load.image("stone5", "/textures/stones/stone5.png");
-    this.load.image("stone6", "/textures/stones/stone6.png");
-    this.load.image("stone7", "/textures/stones/stone7.png");
-    this.load.image("stone8", "/textures/stones/stone8.png");
-    this.load.image("stone9", "/textures/stones/stone9.png");
+    this.load.image("stone1", "textures/stones/stone1.png");
+    this.load.image("stone2", "textures/stones/stone2.png");
+    this.load.image("stone3", "textures/stones/stone3.png");
+    this.load.image("stone4", "textures/stones/stone4.png");
+    this.load.image("stone5", "textures/stones/stone5.png");
+    this.load.image("stone6", "textures/stones/stone6.png");
+    this.load.image("stone7", "textures/stones/stone7.png");
+    this.load.image("stone8", "textures/stones/stone8.png");
+    this.load.image("stone9", "textures/stones/stone9.png");
     
     // Class icons
     this.load.image("warrior-icon", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
