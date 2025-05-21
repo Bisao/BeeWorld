@@ -207,11 +207,15 @@ export class CharacterSelectScene extends Scene {
       });
       infoText.setOrigin(0.5, 0.5);
       
-      // Make the entry interactive
-      entryBg.setInteractive({ useHandCursor: true })
-        .on('pointerdown', () => {
-          this.selectCharacter(index);
-        });
+      // Make the entry interactive usando zona retangular
+      const hitZone = this.add.zone(0, yOffset, 240, 70)
+        .setOrigin(0.5)
+        .setInteractive();
+      
+      hitZone.on('pointerdown', () => {
+        this.selectCharacter(index);
+        console.log(`Selected character: ${character.name}`);
+      });
       
       // Add all elements to the container
       this.characterList.add([entryBg, nameText, infoText]);

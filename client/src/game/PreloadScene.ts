@@ -39,28 +39,8 @@ export class PreloadScene extends Scene {
     this.createButtonTexture("privacy-button", 0x4a9df5, 0x3a7dc5, 120, 40);
     this.createButtonTexture("quit-button", 0xf54a4a, 0xc53a3a, 120, 40);
     
-    // Começar diretamente na tela de seleção de personagens
-    // para que você possa ver essa parte do jogo!
-    this.scene.start("CharacterSelectScene", { characters: [
-      { 
-        id: 1, 
-        name: "oChaps", 
-        level: 25, 
-        class: "Mage", 
-        location: "Oakwood",
-        sprite: "mage-character",
-        isFavorite: true
-      },
-      { 
-        id: 2, 
-        name: "aPati", 
-        level: 10, 
-        class: "Priest", 
-        location: "Heartwood",
-        sprite: "priest-character",
-        isFavorite: false
-      }
-    ]});
+    // Começar na tela de login
+    this.scene.start("SimpleLoginScene");
   }
   
   // Helper function to create button textures programmatically
