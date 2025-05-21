@@ -24,14 +24,14 @@ export class PreloadScene extends Scene {
     this.load.image("mage-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     this.load.image("priest-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     
-    // Create temporary resource textures
-    this.createResourceTexture("tree", 0x2d5a27);     // Dark green
-    this.createResourceTexture("rock", 0x808080);     // Gray
-    this.createResourceTexture("coal", 0x303030);     // Dark gray
-    this.createResourceTexture("iron", 0xb0b0b0);     // Light gray
-    this.createResourceTexture("copper", 0xb87333);   // Copper brown
-    this.createResourceTexture("silver", 0xc0c0c0);   // Silver
-    this.createResourceTexture("gold", 0xffd700);     // Gold
+    // Load resource textures
+    this.load.image("tree", "/textures/tree.png");
+    this.load.image("rock", "/textures/rock.png");
+    this.load.image("coal", "/textures/coal.png");
+    this.load.image("iron", "/textures/iron.png");
+    this.load.image("copper", "/textures/copper.png");
+    this.load.image("silver", "/textures/silver.png");
+    this.load.image("gold", "/textures/gold.png");
     
     // Class icons
     this.load.image("warrior-icon", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
@@ -112,19 +112,3 @@ export class PreloadScene extends Scene {
     return "#" + color.toString(16).padStart(6, "0");
   }
 }
-    const size = 32;
-    const texture = this.textures.createCanvas(name, size, size);
-    const context = texture.getContext();
-    
-    context.fillStyle = this.rgbToHex(color);
-    context.fillRect(0, 0, size, size);
-    
-    // Add some shading
-    context.fillStyle = 'rgba(255,255,255,0.2)';
-    context.fillRect(0, 0, size/2, size/2);
-    
-    context.fillStyle = 'rgba(0,0,0,0.2)';
-    context.fillRect(size/2, size/2, size/2, size/2);
-    
-    texture.refresh();
-  }

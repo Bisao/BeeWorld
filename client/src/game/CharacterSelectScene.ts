@@ -65,15 +65,12 @@ export class CharacterSelectScene extends Scene {
   }
   
   private createCharacterDisplay() {
-    const scale = Math.min(1, this.cameras.main.width / 1024);
-    const centerY = this.cameras.main.height * 0.4;
-    
     // Display panel
     const panel = this.add.rectangle(
       this.cameras.main.width / 2,
-      centerY,
-      300 * scale,
-      300 * scale,
+      230,
+      300,
+      300,
       0xc4a484,
       0.9
     );

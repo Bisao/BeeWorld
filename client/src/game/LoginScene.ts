@@ -17,10 +17,10 @@ export class LoginScene extends Scene {
     const mainContainer = this.add.container(0, 0);
     
     // Título criado diretamente no jogo (texto estilizado)
-    const titleText = this.add.text(this.cameras.main.width / 2, 140, "Bee World", {
+    const titleText = this.add.text(this.cameras.main.width / 2, 140, "Heartwood", {
       fontFamily: "MedievalSharp",
       fontSize: "72px",
-      color: "#FFD700",
+      color: "#a67c00",
       stroke: "#000000",
       strokeThickness: 4,
       shadow: { offsetX: 2, offsetY: 2, color: "#000000", blur: 5, fill: true }
@@ -31,12 +31,23 @@ export class LoginScene extends Scene {
     const subtitleText = this.add.text(this.cameras.main.width / 2, 210, "Online", {
       fontFamily: "MedievalSharp",
       fontSize: "48px",
-      color: "#FFA500",
+      color: "#ffdd00",
       stroke: "#000000",
       strokeThickness: 2,
       shadow: { offsetX: 2, offsetY: 2, color: "#000000", blur: 3, fill: true }
     });
     subtitleText.setOrigin(0.5);
+    
+    // Adiciona decoração - espada embaixo
+    const sword = this.add.graphics();
+    sword.fillStyle(0xaaaaaa, 1);
+    sword.fillRect(this.cameras.main.width / 2 - 5, 220, 10, 40);
+    sword.fillStyle(0xcccccc, 1);
+    sword.fillTriangle(
+      this.cameras.main.width / 2 - 20, 220,
+      this.cameras.main.width / 2 + 20, 220,
+      this.cameras.main.width / 2, 205
+    );
     
     // Create the login panel
     this.createLoginPanel();
@@ -62,12 +73,7 @@ export class LoginScene extends Scene {
   
   private createLoginPanel() {
     const centerX = this.cameras.main.width / 2;
-    const centerY = this.cameras.main.height / 2;
-    const panelContainer = this.add.container(centerX, Math.min(370, centerY + 50));
-    
-    // Ajusta escala baseado no tamanho da tela
-    const scale = Math.min(1, this.cameras.main.width / 800);
-    panelContainer.setScale(scale);
+    const panelContainer = this.add.container(centerX, 370);
     
     // Play button grande e verde
     const playButton = this.createButton(0, 0, "Play", () => {
