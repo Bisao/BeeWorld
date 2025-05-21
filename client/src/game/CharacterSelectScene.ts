@@ -334,11 +334,15 @@ export class CharacterSelectScene extends Scene {
     );
     deleteText.setOrigin(0.5);
     
-    deleteButton.setInteractive({ useHandCursor: true })
+    deleteButton.setInteractive(new Phaser.Geom.Rectangle(
+      this.cameras.main.width / 2 - 120,
+      470,
+      110,
+      40
+    ), Phaser.Geom.Rectangle.Contains)
       .on('pointerdown', () => {
         if (this.characters.length > 0) {
-          // In a real game, show a confirmation dialog
-          console.log(`Delete character: ${this.characters[this.selectedCharacterIndex].name}`);
+          this.deleteCharacter(this.selectedCharacterIndex);
         }
       });
     
@@ -364,10 +368,15 @@ export class CharacterSelectScene extends Scene {
     );
     favoriteText.setOrigin(0.5);
     
-    favoriteButton.setInteractive({ useHandCursor: true })
+    favoriteButton.setInteractive(new Phaser.Geom.Rectangle(
+      this.cameras.main.width / 2 + 10,
+      470,
+      110,
+      40
+    ), Phaser.Geom.Rectangle.Contains)
       .on('pointerdown', () => {
         if (this.characters.length > 0) {
-          console.log(`Set ${this.characters[this.selectedCharacterIndex].name} as favorite`);
+          this.setAsFavorite(this.selectedCharacterIndex);
         }
       });
   }
@@ -428,7 +437,12 @@ export class CharacterSelectScene extends Scene {
     );
     logoutText.setOrigin(0.5);
     
-    logoutButton.setInteractive({ useHandCursor: true })
+    logoutButton.setInteractive(new Phaser.Geom.Rectangle(
+      this.cameras.main.width - 100,
+      this.cameras.main.height - 50,
+      80,
+      40
+    ), Phaser.Geom.Rectangle.Contains)
       .on('pointerdown', () => {
         console.log("Logout clicked");
         this.scene.start("LoginScene");
