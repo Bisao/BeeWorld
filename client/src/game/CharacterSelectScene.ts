@@ -257,7 +257,7 @@ private createCharacterList() {
   private handlePlay() {
     if (this.characters.length > 0) {
       const selectedCharacter = this.characters[this.selectedCharacterIndex];
-      console.log(`Playing with character: ${selectedCharacter.name}`);
+      this.scene.start("GameScene", { character: selectedCharacter });
     }
   }
 

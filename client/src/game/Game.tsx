@@ -7,6 +7,7 @@ import { CharacterSelectScene } from "./CharacterSelectScene";
 import { CharacterCreateScene } from "./CharacterCreateScene";
 import { SimpleLoginScene } from "./SimpleLoginScene";
 import { SimpleCharacterCreateScene } from "./SimpleCharacterCreateScene";
+import { GameScene } from "./GameScene";
 
 // Adiciona interfaces do Phaser para garantir que estão disponíveis corretamente
 declare global {
@@ -38,7 +39,8 @@ const Game = () => {
           SimpleLoginScene, 
           CharacterSelectScene, 
           CharacterCreateScene,
-          SimpleCharacterCreateScene
+          SimpleCharacterCreateScene,
+          GameScene
         ],
         physics: {
           default: "arcade",
