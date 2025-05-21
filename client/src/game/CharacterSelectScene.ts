@@ -527,7 +527,76 @@ export class CharacterSelectScene extends Scene {
     return container;
   }
   
+  // Recuperar todos os personagens
+  private getCharacters(): any[] {
+    try {
+      const savedCharactersStr = localStorage.getItem('heartwoodCharacters');
+      if (savedCharactersStr) {
+        return JSON.parse(savedCharactersStr);
+      }
+    } catch (error) {
+      console.error("Error retrieving characters:", error);
+    }
+    
+    // Retornar array vazio se não houver personagens ou ocorrer erro
+    return [];
+  }
+  
+  // Salvar personagens
+  private saveCharacters(characters: any[]): void {
+    try {
+      localStorage.setItem('heartwoodCharacters', JSON.stringify(characters));
+      console.log("Characters saved:", characters);
+    } catch (error) {
+      console.error("Error saving characters:", error);
+    }
+  }
+  
+  // Deletar um personagem
+  private deleteCharacter(index: number): void {
+    if (index < 0 || index >= this.characters.length) {
+      return;
+    }
+    
+    const characterName = this.characters[index].name;
+    if (confirm(`Are you sure you want to delete character "${characterName}"?`)) {
+      // Remover personagem do array
+      this.characters.splice(index, 0);
+      
+      // Salvar alterações
+      this.saveCharacters(this.characters);
+      
+      // Atualizar a interface - reiniciar a cena
+      this.scene.restart({ characters: this.characters });
+      
+      // Notificar usuário
+      alert(`Character "${characterName}" has been deleted.`);
+    }
+  }
+  
+  // Definir um personagem como favorito
+  private setAsFavorite(index: number): void {
+    if (index < 0 || index >= this.characters.length) {
+      return;
+    }
+    
+    // Desmarca todos os personagens como favoritos
+    this.characters.forEach(char => char.isFavorite = false);
+    
+    // Define o personagem selecionado como favorito
+    this.characters[index].isFavorite = true;
+    
+    // Salvar alterações
+    this.saveCharacters(this.characters);
+    
+    // Atualizar a interface - reiniciar a cena
+    this.scene.restart({ characters: this.characters });
+    
+    // Notificar usuário
+    alert(`${this.characters[index].name} is now your favorite character!`);
+  }
+  
   private showCreateCharacterScreen() {
-    this.scene.start("CharacterCreateScene");
+    this.scene.start("SimpleCharacterCreateScene");
   }
 }

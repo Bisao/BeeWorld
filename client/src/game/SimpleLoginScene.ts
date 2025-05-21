@@ -60,7 +60,14 @@ export class SimpleLoginScene extends Scene {
       0x76c442, // verde
       () => {
         console.log("Play button clicked");
+        // Carregar personagens salvos
+      const savedCharacters = this.getCharacters();
+      
+      if (savedCharacters.length > 0) {
+        this.scene.start("CharacterSelectScene", { characters: savedCharacters });
+      } else {
         this.scene.start("SimpleCharacterCreateScene");
+      }
       },
       1.2
     );
@@ -120,6 +127,21 @@ export class SimpleLoginScene extends Scene {
       "v0.4.13 BETA", 
       { fontFamily: "monospace", fontSize: "14px", color: "#aaaaaa" }
     ).setOrigin(1, 1);
+  }
+  
+  // Função para recuperar personagens salvos
+  private getCharacters(): any[] {
+    try {
+      const savedCharactersStr = localStorage.getItem('heartwoodCharacters');
+      if (savedCharactersStr) {
+        return JSON.parse(savedCharactersStr);
+      }
+    } catch (error) {
+      console.error("Error retrieving characters:", error);
+    }
+    
+    // Retornar array vazio se não houver personagens ou ocorrer erro
+    return [];
   }
   
   private createSocialButton(x: number, y: number, type: "Google" | "Apple") {

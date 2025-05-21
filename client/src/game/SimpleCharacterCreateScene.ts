@@ -51,6 +51,8 @@ export class SimpleCharacterCreateScene extends Scene {
   }
   
   // Campo para nome do personagem
+  private characterName: string = "";
+  
   private createNameField() {
     const nameField = this.add.rectangle(
       this.cameras.main.width / 2,
@@ -72,9 +74,14 @@ export class SimpleCharacterCreateScene extends Scene {
     ).setOrigin(0.5);
     
     nameField.on('pointerdown', () => {
-      const name = prompt("Enter character name:");
+      const name = prompt("Enter character name (min 3 letters):");
       if (name) {
-        nameText.setText(name);
+        if (name.length >= 3) {
+          this.characterName = name;
+          nameText.setText(name);
+        } else {
+          alert("Name must be at least 3 letters long!");
+        }
       }
     });
   }
@@ -279,8 +286,29 @@ export class SimpleCharacterCreateScene extends Scene {
     });
     
     createBtn.on('pointerdown', () => {
-      alert("Character created!");
-      this.scene.start("SimpleLoginScene");
+      if (this.characterName.length >= 3) {
+        // Criar objeto de personagem
+        const newCharacter = {
+          id: new Date().getTime(), // ID único baseado no timestamp
+          name: this.characterName,
+          level: 1,
+          class: this.characterClass,
+          hairStyle: this.hairStyle,
+          hairColor: this.hairColor,
+          skinColor: this.skinColor,
+          location: "Heartwood",
+          isFavorite: false,
+          createdAt: new Date().toISOString()
+        };
+        
+        // Salvar o personagem no localStorage
+        this.saveCharacter(newCharacter);
+        
+        alert(`Character ${this.characterName} created successfully!`);
+        this.scene.start("CharacterSelectScene", { characters: this.getCharacters() });
+      } else {
+        alert("Please enter a valid name with at least 3 letters!");
+      }
     });
   }
   
@@ -401,5 +429,39 @@ export class SimpleCharacterCreateScene extends Scene {
       0xa52a2a  // Ruivo
     ];
     return colors[this.hairColor - 1] || colors[0];
+  }
+  
+  // Salvar um novo personagem
+  private saveCharacter(character: any): void {
+    try {
+      // Recuperar personagens existentes
+      const savedCharacters = this.getCharacters();
+      
+      // Adicionar o novo personagem
+      savedCharacters.push(character);
+      
+      // Salvar no localStorage
+      localStorage.setItem('heartwoodCharacters', JSON.stringify(savedCharacters));
+      
+      console.log("Character saved:", character);
+    } catch (error) {
+      console.error("Error saving character:", error);
+      alert("Failed to save character. Please try again.");
+    }
+  }
+  
+  // Recuperar todos os personagens
+  private getCharacters(): any[] {
+    try {
+      const savedCharactersStr = localStorage.getItem('heartwoodCharacters');
+      if (savedCharactersStr) {
+        return JSON.parse(savedCharactersStr);
+      }
+    } catch (error) {
+      console.error("Error retrieving characters:", error);
+    }
+    
+    // Retornar array vazio se não houver personagens ou ocorrer erro
+    return [];
   }
 }
