@@ -41,10 +41,14 @@ export class GameScene extends Scene {
     // Criar player no centro do grid
     const centerX = (10 * this.gridSize); // Centro do grid (20x20)
     const centerY = (10 * this.gridSize);
-    this.player = this.add.sprite(centerX, centerY, this.characterData.sprite || 'warrior-character');
+    const spriteKey = this.characterData?.class?.toLowerCase() + '-character' || 'warrior-character';
+    this.player = this.add.sprite(centerX, centerY, spriteKey);
     this.player.setOrigin(0.5);
     this.player.setScale(2); // Aumentar escala para melhor visibilidade
     this.player.setDepth(1); // Garantir que o player fique sobre o grid
+    
+    console.log("Character loaded:", this.characterData);
+    console.log("Using sprite:", spriteKey);
 
     // Configurar câmera para seguir o player
     this.cameras.main.startFollow(this.player, true);
