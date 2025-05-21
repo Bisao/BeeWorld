@@ -107,7 +107,11 @@ export class LoginScene extends Scene {
     // Button interactions
     this.setupButtonInteraction(playButton, () => {
       console.log("Play button clicked");
-      this.scene.start("CharacterSelectScene");
+      
+      // Vamos usar setTimeout para garantir que a cena carregue corretamente
+      setTimeout(() => {
+        this.scene.start("CharacterSelectScene", { characters: [] });
+      }, 100);
     });
     
     this.setupButtonInteraction(googleButton, () => {
