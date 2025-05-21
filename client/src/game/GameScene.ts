@@ -57,19 +57,26 @@ export class GameScene extends Scene {
         tile.setDisplaySize(this.gridSize, this.gridSize);
         tile.setDepth(0); // Base layer
         
-        // Gerar recursos aleatoriamente
-        this.resourceTypes.forEach(resource => {
-          if (Math.random() < resource.frequency) {
-            const resourceSprite = this.add.sprite(
-              i * this.gridSize + this.gridSize/2,
-              j * this.gridSize + this.gridSize/2,
-              resource.key
-            );
-            resourceSprite.setDisplaySize(this.gridSize * 0.8, this.gridSize * 0.8);
-            resourceSprite.setDepth(2); // Above grass, below player
-            this.resources.push(resourceSprite);
+        // Gerar recursos aleatoriamente em tiles válidos
+        if (i > 0 && i < gridSize-1 && j > 0 && j < gridSize-1) {  // Evitar bordas
+          const chance = Math.random();
+          let resourceAdded = false;
+          
+          for (const resource of this.resourceTypes) {
+            if (!resourceAdded && chance < resource.frequency) {
+              const resourceSprite = this.add.sprite(
+                i * this.gridSize + this.gridSize/2,
+                j * this.gridSize + this.gridSize/2,
+                resource.key
+              );
+              resourceSprite.setDisplaySize(this.gridSize * 0.8, this.gridSize * 0.8);
+              resourceSprite.setDepth(2);
+              this.resources.push(resourceSprite);
+              resourceAdded = true;
+              break;
+            }
           }
-        });
+        }
       }
     }
 
