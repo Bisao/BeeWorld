@@ -86,7 +86,30 @@ export class CharacterSelectScene extends Scene {
     }).setOrigin(0.5);
   }
 
-  private createCharacterList() {
+  private validateCharacterName(name: string): boolean {
+    return name.length >= 3 && name.length <= 16 && /^[a-zA-Z0-9]+$/.test(name);
+}
+
+private saveCharacter(character: any): void {
+    try {
+        // Recupera personagens existentes
+        const savedCharactersStr = localStorage.getItem('heartwoodCharacters');
+        const savedCharacters = savedCharactersStr ? JSON.parse(savedCharactersStr) : [];
+        
+        // Adiciona o novo personagem
+        savedCharacters.push(character);
+        
+        // Salva no localStorage
+        localStorage.setItem('heartwoodCharacters', JSON.stringify(savedCharacters));
+        
+        console.log("Character saved:", character);
+    } catch (error) {
+        console.error("Error saving character:", error);
+        throw new Error("Failed to save character");
+    }
+}
+
+private createCharacterList() {
     // Panel background
     const panel = this.add.rectangle(
       this.cameras.main.width - 165,
@@ -306,6 +329,32 @@ export class CharacterSelectScene extends Scene {
   }
 
   private showCreateCharacterScreen() {
-    this.scene.start("SimpleCharacterCreateScene");
-  }
+    const name = prompt("Enter character name (3-16 alphanumeric characters):");
+    if (name) {
+        try {
+            if (this.validateCharacterName(name)) {
+                const newCharacter = {
+                    id: Date.now(),
+                    name: name,
+                    level: 1,
+                    class: "Warrior",
+                    location: "Heartwood",
+                    sprite: "warrior-character",
+                    isFavorite: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.saveCharacter(newCharacter);
+                this.characters.push(newCharacter);
+                this.scene.restart({ characters: this.characters });
+            } else {
+                alert("Invalid name! Use 3-16 alphanumeric characters.");
+                this.showCreateCharacterScreen();
+            }
+        } catch (error) {
+            alert("Error creating character. Please try again.");
+            console.error(error);
+        }
+    }
+}
 }
