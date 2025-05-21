@@ -304,12 +304,7 @@ export class CharacterSelectScene extends Scene {
     );
     playText.setOrigin(0.5);
     
-    playButton.setInteractive(new Phaser.Geom.Rectangle(
-      this.cameras.main.width / 2 - 100,
-      400,
-      200,
-      50
-    ), Phaser.Geom.Rectangle.Contains)
+    playButton.setInteractive({ useHandCursor: true })
       .on('pointerdown', () => {
         if (this.characters.length > 0) {
           const selectedCharacter = this.characters[this.selectedCharacterIndex];
@@ -342,12 +337,7 @@ export class CharacterSelectScene extends Scene {
     );
     deleteText.setOrigin(0.5);
     
-    deleteButton.setInteractive(new Phaser.Geom.Rectangle(
-      this.cameras.main.width / 2 - 120,
-      470,
-      110,
-      40
-    ), Phaser.Geom.Rectangle.Contains)
+    deleteButton.setInteractive({ useHandCursor: true })
       .on('pointerdown', () => {
         if (this.characters.length > 0) {
           this.deleteCharacter(this.selectedCharacterIndex);
@@ -376,12 +366,7 @@ export class CharacterSelectScene extends Scene {
     );
     favoriteText.setOrigin(0.5);
     
-    favoriteButton.setInteractive(new Phaser.Geom.Rectangle(
-      this.cameras.main.width / 2 + 10,
-      470,
-      110,
-      40
-    ), Phaser.Geom.Rectangle.Contains)
+    favoriteButton.setInteractive({ useHandCursor: true })
       .on('pointerdown', () => {
         if (this.characters.length > 0) {
           this.setAsFavorite(this.selectedCharacterIndex);
@@ -445,12 +430,7 @@ export class CharacterSelectScene extends Scene {
     );
     logoutText.setOrigin(0.5);
     
-    logoutButton.setInteractive(new Phaser.Geom.Rectangle(
-      this.cameras.main.width - 100,
-      this.cameras.main.height - 50,
-      80,
-      40
-    ), Phaser.Geom.Rectangle.Contains)
+    logoutButton.setInteractive({ useHandCursor: true })
       .on('pointerdown', () => {
         console.log("Logout clicked");
         this.scene.start("LoginScene");
