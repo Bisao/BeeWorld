@@ -329,32 +329,6 @@ private createCharacterList() {
   }
 
   private showCreateCharacterScreen() {
-    const name = prompt("Enter character name (3-16 alphanumeric characters):");
-    if (name) {
-        try {
-            if (this.validateCharacterName(name)) {
-                const newCharacter = {
-                    id: Date.now(),
-                    name: name,
-                    level: 1,
-                    class: "Warrior",
-                    location: "Heartwood",
-                    sprite: "warrior-character",
-                    isFavorite: false,
-                    createdAt: new Date().toISOString()
-                };
-
-                this.saveCharacter(newCharacter);
-                this.characters.push(newCharacter);
-                this.scene.restart({ characters: this.characters });
-            } else {
-                alert("Invalid name! Use 3-16 alphanumeric characters.");
-                this.showCreateCharacterScreen();
-            }
-        } catch (error) {
-            alert("Error creating character. Please try again.");
-            console.error(error);
-        }
-    }
-}
+    this.scene.start("SimpleCharacterCreateScene");
+  }
 }
