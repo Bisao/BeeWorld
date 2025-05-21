@@ -25,12 +25,15 @@ export class GameScene extends Scene {
     { key: 'bush1', frequency: 0.02 },
     { key: 'bush2', frequency: 0.02 },
     { key: 'bush3', frequency: 0.02 },
-    { key: 'rock', frequency: 0.08 },
-    { key: 'coal', frequency: 0.06 },
-    { key: 'iron', frequency: 0.05 },
-    { key: 'copper', frequency: 0.04 },
-    { key: 'silver', frequency: 0.03 },
-    { key: 'gold', frequency: 0.02 }
+    { key: 'stone1', frequency: 0.03 },
+    { key: 'stone2', frequency: 0.03 },
+    { key: 'stone3', frequency: 0.03 },
+    { key: 'stone4', frequency: 0.03 },
+    { key: 'stone5', frequency: 0.03 },
+    { key: 'stone6', frequency: 0.03 },
+    { key: 'stone7', frequency: 0.03 },
+    { key: 'stone8', frequency: 0.03 },
+    { key: 'stone9', frequency: 0.03 }
   ];
 
   constructor() {

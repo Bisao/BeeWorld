@@ -36,13 +36,16 @@ export class PreloadScene extends Scene {
     this.load.image("bush2", "/textures/trees/bush2.png");
     this.load.image("bush3", "/textures/trees/bush3.png");
     
-    // Load other resource textures
-    this.load.image("rock", "/textures/rock.png");
-    this.load.image("coal", "/textures/coal.png");
-    this.load.image("iron", "/textures/iron.png");
-    this.load.image("copper", "/textures/copper.png");
-    this.load.image("silver", "/textures/silver.png");
-    this.load.image("gold", "/textures/gold.png");
+    // Load stone variations
+    this.load.image("stone1", "/textures/stones/stone1.png");
+    this.load.image("stone2", "/textures/stones/stone2.png");
+    this.load.image("stone3", "/textures/stones/stone3.png");
+    this.load.image("stone4", "/textures/stones/stone4.png");
+    this.load.image("stone5", "/textures/stones/stone5.png");
+    this.load.image("stone6", "/textures/stones/stone6.png");
+    this.load.image("stone7", "/textures/stones/stone7.png");
+    this.load.image("stone8", "/textures/stones/stone8.png");
+    this.load.image("stone9", "/textures/stones/stone9.png");
     
     // Class icons
     this.load.image("warrior-icon", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
