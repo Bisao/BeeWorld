@@ -12,6 +12,17 @@ export class GameScene extends Scene {
   };
   private isMoving: boolean = false;
   private characterData: any;
+  private resources: Phaser.GameObjects.Sprite[] = [];
+  
+  private resourceTypes = [
+    { key: 'tree', frequency: 0.1 },
+    { key: 'rock', frequency: 0.08 },
+    { key: 'coal', frequency: 0.06 },
+    { key: 'iron', frequency: 0.05 },
+    { key: 'copper', frequency: 0.04 },
+    { key: 'silver', frequency: 0.03 },
+    { key: 'gold', frequency: 0.02 }
+  ];
 
   constructor() {
     super("GameScene");
@@ -32,6 +43,20 @@ export class GameScene extends Scene {
           'grass-texture'
         );
         tile.setDisplaySize(this.gridSize, this.gridSize);
+        
+        // Gerar recursos aleatoriamente
+        this.resourceTypes.forEach(resource => {
+          if (Math.random() < resource.frequency) {
+            const resourceSprite = this.add.sprite(
+              i * this.gridSize + this.gridSize/2,
+              j * this.gridSize + this.gridSize/2,
+              resource.key
+            );
+            resourceSprite.setDisplaySize(this.gridSize * 0.8, this.gridSize * 0.8);
+            resourceSprite.setDepth(1);
+            this.resources.push(resourceSprite);
+          }
+        });
       }
     }
 

@@ -19,10 +19,19 @@ export class PreloadScene extends Scene {
     // Load pixel for graphics operations
     this.load.image("pixel", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     
-    // Pre-load character sprites (these would be actual sprites in a real game)
+    // Pre-load character sprites and resources
     this.load.image("warrior-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     this.load.image("mage-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     this.load.image("priest-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
+    
+    // Load resource textures
+    this.load.image("tree", "/textures/tree.png");
+    this.load.image("rock", "/textures/rock.png");
+    this.load.image("coal", "/textures/coal.png");
+    this.load.image("iron", "/textures/iron.png");
+    this.load.image("copper", "/textures/copper.png");
+    this.load.image("silver", "/textures/silver.png");
+    this.load.image("gold", "/textures/gold.png");
     
     // Class icons
     this.load.image("warrior-icon", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
