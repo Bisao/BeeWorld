@@ -33,7 +33,7 @@ export class SimpleButton extends Phaser.GameObjects.Container {
     
     // Make interactive
     this.setSize(width, height);
-    this.setInteractive({ cursor: 'pointer' });
+    this.setInteractive(new Phaser.Geom.Rectangle(0, 0, width, height), Phaser.Geom.Rectangle.Contains);
     
     // Set up events
     this.on('pointerdown', this.onPointerDown, this);
