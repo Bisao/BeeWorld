@@ -15,7 +15,16 @@ export class GameScene extends Scene {
   private resources: Phaser.GameObjects.Sprite[] = [];
   
   private resourceTypes = [
-    { key: 'tree', frequency: 0.1 },
+    { key: 'tree1', frequency: 0.03 },
+    { key: 'tree2', frequency: 0.03 },
+    { key: 'tree3', frequency: 0.03 },
+    { key: 'tree4', frequency: 0.03 },
+    { key: 'tree5', frequency: 0.03 },
+    { key: 'pine1', frequency: 0.02 },
+    { key: 'pine2', frequency: 0.02 },
+    { key: 'bush1', frequency: 0.02 },
+    { key: 'bush2', frequency: 0.02 },
+    { key: 'bush3', frequency: 0.02 },
     { key: 'rock', frequency: 0.08 },
     { key: 'coal', frequency: 0.06 },
     { key: 'iron', frequency: 0.05 },
