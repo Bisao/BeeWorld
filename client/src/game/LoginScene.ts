@@ -236,6 +236,37 @@ export class LoginScene extends Scene {
     });
     buttonText.setOrigin(0.5);
     
+    // Faz o botão ser interativo diretamente
+    buttonBg.setInteractive({ useHandCursor: true });
+    
+    buttonBg.on("pointerover", () => {
+      button.setScale(button.scale * 1.05);
+    });
+    
+    buttonBg.on("pointerout", () => {
+      button.setScale(button.scale / 1.05);
+    });
+    
+    buttonBg.on("pointerdown", () => {
+      button.setScale(button.scale * 0.95);
+    });
+    
+    buttonBg.on("pointerup", () => {
+      if (text === "Play") {
+        console.log("Play button clicked");
+        this.scene.start("CharacterSelectScene", { characters: [] });
+      } else if (text === "Account") {
+        console.log("Account button clicked");
+      } else if (text === "Privacy Policy") {
+        console.log("Privacy Policy clicked");
+      } else if (text === "Quit") {
+        console.log("Quit button clicked");
+      }
+      
+      // Play sound effect
+      this.sound.play("click");
+    });
+    
     button.add([buttonBg, buttonText]);
     this.buttons.push(button);
     
@@ -252,6 +283,10 @@ export class LoginScene extends Scene {
     circle.lineStyle(2, 0x000000, 0.3);
     circle.strokeCircle(0, 0, 24);
     
+    // Área interativa para o círculo
+    const circleHitArea = this.add.circle(0, 0, 24);
+    circleHitArea.setInteractive({ useHandCursor: true });
+    
     // Icon or fallback text
     let icon;
     try {
@@ -266,7 +301,36 @@ export class LoginScene extends Scene {
       icon.setOrigin(0.5);
     }
     
-    button.add([circle, icon]);
+    // Adicionar eventos ao hitArea
+    circleHitArea.on("pointerover", () => {
+      button.setScale(1.1);
+    });
+    
+    circleHitArea.on("pointerout", () => {
+      button.setScale(1.0);
+    });
+    
+    circleHitArea.on("pointerdown", () => {
+      button.setScale(0.9);
+    });
+    
+    circleHitArea.on("pointerup", () => {
+      button.setScale(1.0);
+      
+      // Play sound effect
+      this.sound.play("click");
+      
+      // Determine which social login was clicked
+      if (iconKey === "google-icon") {
+        console.log("Google login clicked");
+        window.open("https://accounts.google.com", "_blank");
+      } else if (iconKey === "apple-icon") {
+        console.log("Apple login clicked");
+        window.open("https://appleid.apple.com", "_blank");
+      }
+    });
+    
+    button.add([circle, icon, circleHitArea]);
     this.buttons.push(button);
     
     return button;

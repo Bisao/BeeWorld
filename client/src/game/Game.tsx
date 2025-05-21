@@ -5,6 +5,7 @@ import { PreloadScene } from "./PreloadScene";
 import { LoginScene } from "./LoginScene";
 import { CharacterSelectScene } from "./CharacterSelectScene";
 import { CharacterCreateScene } from "./CharacterCreateScene";
+import { SimpleLoginScene } from "./SimpleLoginScene";
 
 // Adiciona interfaces do Phaser para garantir que estão disponíveis corretamente
 declare global {
@@ -33,6 +34,7 @@ const Game = () => {
           BootScene, 
           PreloadScene, 
           LoginScene, 
+          SimpleLoginScene, 
           CharacterSelectScene, 
           CharacterCreateScene
         ],
