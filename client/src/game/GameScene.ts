@@ -62,6 +62,10 @@ export class GameScene extends Scene {
       A: Phaser.Input.Keyboard.KeyCodes.A,
       S: Phaser.Input.Keyboard.KeyCodes.S,
       D: Phaser.Input.Keyboard.KeyCodes.D,
+      UP: Phaser.Input.Keyboard.KeyCodes.UP,
+      LEFT: Phaser.Input.Keyboard.KeyCodes.LEFT,
+      DOWN: Phaser.Input.Keyboard.KeyCodes.DOWN,
+      RIGHT: Phaser.Input.Keyboard.KeyCodes.RIGHT
     }) as any;
   }
 
@@ -71,12 +75,12 @@ export class GameScene extends Scene {
       let dy = 0;
 
       // Detectar movimento horizontal
-      if (this.movementKeys.A.isDown) dx -= 1;
-      if (this.movementKeys.D.isDown) dx += 1;
+      if (this.movementKeys.A.isDown || this.movementKeys.LEFT.isDown) dx -= 1;
+      if (this.movementKeys.D.isDown || this.movementKeys.RIGHT.isDown) dx += 1;
 
       // Detectar movimento vertical
-      if (this.movementKeys.W.isDown) dy -= 1;
-      if (this.movementKeys.S.isDown) dy += 1;
+      if (this.movementKeys.W.isDown || this.movementKeys.UP.isDown) dy -= 1;
+      if (this.movementKeys.S.isDown || this.movementKeys.DOWN.isDown) dy += 1;
 
       // Normalizar movimento diagonal
       if (dx !== 0 && dy !== 0) {
