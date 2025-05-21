@@ -44,7 +44,7 @@ export class GameScene extends Scene {
     const spriteKey = this.characterData?.class?.toLowerCase() + '-character' || 'warrior-character';
     this.player = this.add.sprite(centerX, centerY, spriteKey);
     this.player.setOrigin(0.5);
-    this.player.setScale(2); // Aumentar escala para melhor visibilidade
+    this.player.setScale(this.gridSize / this.player.width); // Ajustar escala para corresponder ao tamanho do tile
     this.player.setDepth(1); // Garantir que o player fique sobre o grid
     
     console.log("Character loaded:", this.characterData);
