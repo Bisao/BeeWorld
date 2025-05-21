@@ -107,7 +107,7 @@ export class LoginScene extends Scene {
     // Button interactions
     this.setupButtonInteraction(playButton, () => {
       console.log("Play button clicked");
-      this.events.emit("play");
+      this.scene.start("CharacterSelectScene");
     });
     
     this.setupButtonInteraction(googleButton, () => {
@@ -271,10 +271,21 @@ export class LoginScene extends Scene {
   private setupButtonInteraction(button: Phaser.GameObjects.Container, callback: () => void) {
     const buttonBg = button.getAt(0) as Phaser.GameObjects.Image;
     
-    // Método mais simples para interatividade que evita o erro de hitAreaCallback
-    buttonBg.setInteractive();
+    // Método alternativo usando rectangle shape - evita o erro de hitAreaCallback
+    const width = buttonBg.width;
+    const height = buttonBg.height;
     
-    buttonBg.on("pointerover", () => {
+    // Criamos uma zona interativa que cobre o botão
+    const hitZone = this.add.zone(
+      button.x, 
+      button.y, 
+      width, 
+      height
+    );
+    
+    hitZone.setInteractive();
+    
+    hitZone.on("pointerover", () => {
       button.setScale(button.scale * 1.05);
       this.tweens.add({
         targets: button,
@@ -283,7 +294,7 @@ export class LoginScene extends Scene {
       });
     });
     
-    buttonBg.on("pointerout", () => {
+    hitZone.on("pointerout", () => {
       button.setScale(button.scale / 1.05);
       this.tweens.add({
         targets: button,
@@ -292,17 +303,20 @@ export class LoginScene extends Scene {
       });
     });
     
-    buttonBg.on("pointerdown", () => {
+    hitZone.on("pointerdown", () => {
       button.setScale(button.scale * 0.95);
     });
     
-    buttonBg.on("pointerup", () => {
+    hitZone.on("pointerup", () => {
       button.setScale(button.scale / 0.95);
       
       // Play sound effect
       this.sound.play("click");
       
-      if (callback) callback();
+      // Executa o callback passado para este botão
+      if (callback) {
+        callback();
+      }
     });
   }
   
