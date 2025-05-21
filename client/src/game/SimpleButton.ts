@@ -1,3 +1,4 @@
+
 import Phaser from 'phaser';
 
 export class SimpleButton extends Phaser.GameObjects.Container {
@@ -32,7 +33,7 @@ export class SimpleButton extends Phaser.GameObjects.Container {
     
     // Make interactive
     this.setSize(width, height);
-    this.setInteractive({ useHandCursor: true });
+    this.setInteractive({ cursor: 'pointer' });
     
     // Set up events
     this.on('pointerdown', this.onPointerDown, this);
