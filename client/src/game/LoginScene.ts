@@ -76,7 +76,14 @@ export class LoginScene extends Scene {
     const panelContainer = this.add.container(centerX, 370);
     
     // Play button grande e verde
-    const playButton = this.createButton(0, 0, "green-button", "Play");
+    const playButton = this.createButton(0, 0, "Play", () => {
+      console.log("Play button clicked");
+        
+      // Vamos usar setTimeout para garantir que a cena carregue corretamente
+      setTimeout(() => {
+        this.scene.start("CharacterSelectScene", { characters: [] });
+      }, 100);
+    });
     playButton.setScale(1.2);
     this.styleText(playButton.getAt(1) as Phaser.GameObjects.Text, { 
       fontSize: "24px",
@@ -93,8 +100,8 @@ export class LoginScene extends Scene {
     orText.setOrigin(0.5);
     
     // Social login buttons
-    const googleButton = this.createSocialButton(-50, 100, "google-icon", "G");
-    const appleButton = this.createSocialButton(50, 100, "apple-icon", "");
+    const googleButton = this.createSocialButton(-50, 100, "Google");
+    const appleButton = this.createSocialButton(50, 100, "Apple");
     
     // Add all to container
     panelContainer.add([playButton, orText, googleButton, appleButton]);
@@ -103,26 +110,6 @@ export class LoginScene extends Scene {
     const separator = this.add.graphics();
     separator.lineStyle(2, 0x888888, 0.8);
     separator.lineBetween(centerX - 120, 430, centerX + 120, 430);
-    
-    // Button interactions
-    this.setupButtonInteraction(playButton, () => {
-      console.log("Play button clicked");
-      
-      // Vamos usar setTimeout para garantir que a cena carregue corretamente
-      setTimeout(() => {
-        this.scene.start("CharacterSelectScene", { characters: [] });
-      }, 100);
-    });
-    
-    this.setupButtonInteraction(googleButton, () => {
-      console.log("Google login clicked");
-      window.open("https://accounts.google.com", "_blank");
-    });
-    
-    this.setupButtonInteraction(appleButton, () => {
-      console.log("Apple login clicked");
-      window.open("https://appleid.apple.com", "_blank");
-    });
   }
   
   private createPreviewPanel() {
@@ -194,198 +181,113 @@ export class LoginScene extends Scene {
   
   private createBottomButtons() {
     // Bottom buttons - exatamente como na imagem de referência
-    const accountButton = this.createButton(120, this.cameras.main.height - 50, "account-button", "Account");
-    const privacyButton = this.createButton(320, this.cameras.main.height - 50, "privacy-button", "Privacy Policy");
-    const quitButton = this.createButton(this.cameras.main.width - 100, this.cameras.main.height - 50, "quit-button", "Quit");
+    const accountButton = this.createButton(120, this.cameras.main.height - 50, "Account", () => {
+      console.log("Account button clicked");
+      // Account functionality would go here
+    });
+    const privacyButton = this.createButton(320, this.cameras.main.height - 50, "Privacy Policy", () => {
+      console.log("Privacy Policy button clicked");
+      window.open("https://example.com/privacy", "_blank");
+    });
+    const quitButton = this.createButton(this.cameras.main.width - 100, this.cameras.main.height - 50, "Quit", () => {
+      console.log("Quit button clicked");
+      // In a real app, this might redirect to another page
+      window.close();
+    });
     
     // Estilizando os textos dos botões
     this.styleText(accountButton.getAt(1) as Phaser.GameObjects.Text, { fontSize: "16px" });
     this.styleText(privacyButton.getAt(1) as Phaser.GameObjects.Text, { fontSize: "16px" });
     this.styleText(quitButton.getAt(1) as Phaser.GameObjects.Text, { fontSize: "16px", fontStyle: "bold" });
-    
-    this.setupButtonInteraction(accountButton, () => {
-      console.log("Account button clicked");
-      // Account functionality would go here
-    });
-    
-    this.setupButtonInteraction(privacyButton, () => {
-      console.log("Privacy Policy button clicked");
-      window.open("https://example.com/privacy", "_blank");
-    });
-    
-    this.setupButtonInteraction(quitButton, () => {
-      console.log("Quit button clicked");
-      // In a real app, this might redirect to another page
-      window.close();
-    });
   }
-  
-  private createButton(x: number, y: number, texture: string, text: string): Phaser.GameObjects.Container {
+
+  private createSocialButton(x: number, y: number, type: "Google" | "Apple") {
     const button = this.add.container(x, y);
-    
-    // Button background
-    const buttonBg = this.add.image(0, 0, texture);
-    
-    // Button text
-    const buttonText = this.add.text(0, 0, text, { 
-      fontFamily: "MedievalSharp", 
-      fontSize: "18px", 
-      color: "#ffffff",
-      stroke: "#000000",
-      strokeThickness: 2
-    });
-    buttonText.setOrigin(0.5);
-    
-    // Faz o botão ser interativo diretamente
-    buttonBg.setInteractive({ useHandCursor: true });
-    
-    buttonBg.on("pointerover", () => {
-      button.setScale(button.scale * 1.05);
-    });
-    
-    buttonBg.on("pointerout", () => {
-      button.setScale(button.scale / 1.05);
-    });
-    
-    buttonBg.on("pointerdown", () => {
-      button.setScale(button.scale * 0.95);
-    });
-    
-    buttonBg.on("pointerup", () => {
-      if (text === "Play") {
-        console.log("Play button clicked");
-        this.scene.start("CharacterSelectScene", { characters: [] });
-      } else if (text === "Account") {
-        console.log("Account button clicked");
-      } else if (text === "Privacy Policy") {
-        console.log("Privacy Policy clicked");
-      } else if (text === "Quit") {
-        console.log("Quit button clicked");
-      }
-      
-      // Play sound effect
-      this.sound.play("click");
-    });
-    
-    button.add([buttonBg, buttonText]);
-    this.buttons.push(button);
-    
-    return button;
-  }
-  
-  private createSocialButton(x: number, y: number, iconKey: string, fallbackText: string): Phaser.GameObjects.Container {
-    const button = this.add.container(x, y);
-    
-    // Button circle background
-    const circle = this.add.graphics();
-    circle.fillStyle(0xffffff, 1);
-    circle.fillCircle(0, 0, 24);
-    circle.lineStyle(2, 0x000000, 0.3);
-    circle.strokeCircle(0, 0, 24);
-    
-    // Área interativa para o círculo
-    const circleHitArea = this.add.circle(0, 0, 24);
-    circleHitArea.setInteractive({ useHandCursor: true });
-    
-    // Icon or fallback text
-    let icon;
-    try {
-      icon = this.add.image(0, 0, iconKey);
-      icon.setScale(0.4);
-    } catch (e) {
-      icon = this.add.text(0, 0, fallbackText, { 
-        fontFamily: "Arial", 
-        fontSize: "20px", 
-        color: "#000000" 
-      });
-      icon.setOrigin(0.5);
-    }
-    
-    // Adicionar eventos ao hitArea
-    circleHitArea.on("pointerover", () => {
+
+    // Círculo branco para fundo
+    const circle = this.add.circle(0, 0, 24, 0xffffff);
+    circle.setStrokeStyle(2, 0x000000, 0.3);
+
+    // Logo ou texto
+    const icon = this.add.text(0, 0, type === "Google" ? "G" : "A", {
+      fontFamily: "Arial",
+      fontSize: "20px",
+      color: type === "Google" ? "#4285F4" : "#000000"
+    }).setOrigin(0.5);
+
+    button.add([circle]);
+    button.add([icon]);
+
+    // Fazer o container interativo
+    button.setSize(48, 48);
+    button.setInteractive({ useHandCursor: true });
+
+    // Eventos
+    button.on("pointerover", () => {
       button.setScale(1.1);
     });
-    
-    circleHitArea.on("pointerout", () => {
+
+    button.on("pointerout", () => {
       button.setScale(1.0);
     });
-    
-    circleHitArea.on("pointerdown", () => {
+
+    button.on("pointerdown", () => {
       button.setScale(0.9);
     });
-    
-    circleHitArea.on("pointerup", () => {
+
+    button.on("pointerup", () => {
       button.setScale(1.0);
-      
-      // Play sound effect
       this.sound.play("click");
-      
-      // Determine which social login was clicked
-      if (iconKey === "google-icon") {
-        console.log("Google login clicked");
+
+      if (type === "Google") {
         window.open("https://accounts.google.com", "_blank");
-      } else if (iconKey === "apple-icon") {
-        console.log("Apple login clicked");
+      } else {
         window.open("https://appleid.apple.com", "_blank");
       }
     });
-    
-    button.add([circle, icon, circleHitArea]);
+
     this.buttons.push(button);
-    
     return button;
   }
-  
-  private setupButtonInteraction(button: Phaser.GameObjects.Container, callback: () => void) {
-    const buttonBg = button.getAt(0) as Phaser.GameObjects.Image;
-    
-    // Método alternativo usando rectangle shape - evita o erro de hitAreaCallback
-    const width = buttonBg.width;
-    const height = buttonBg.height;
-    
-    // Criamos uma zona interativa que cobre o botão
-    const hitZone = this.add.zone(
-      button.x, 
-      button.y, 
-      width, 
-      height
-    );
-    
-    hitZone.setInteractive();
-    
-    hitZone.on("pointerover", () => {
-      button.setScale(button.scale * 1.05);
-      this.tweens.add({
-        targets: button,
-        y: button.y - 3,
-        duration: 100
-      });
+
+  private createButton(x: number, y: number, text: string, callback: () => void): Phaser.GameObjects.Container {
+    const button = this.add.container(x, y);
+
+    const bg = this.add.rectangle(0, 0, 120, 40, 0x4a9df5);
+    bg.setStrokeStyle(2, 0x000000);
+
+    const buttonText = this.add.text(0, 0, text, {
+      fontFamily: "MedievalSharp",
+      fontSize: "18px",
+      color: "#ffffff"
+    }).setOrigin(0.5);
+
+    button.add([bg, buttonText]);
+
+    // Fazer o container interativo
+    button.setSize(120, 40);
+    button.setInteractive({ useHandCursor: true });
+
+    // Eventos
+    button.on("pointerover", () => {
+      button.setScale(1.1);
     });
-    
-    hitZone.on("pointerout", () => {
-      button.setScale(button.scale / 1.05);
-      this.tweens.add({
-        targets: button,
-        y: button.y + 3,
-        duration: 100
-      });
+
+    button.on("pointerout", () => {
+      button.setScale(1.0);
     });
-    
-    hitZone.on("pointerdown", () => {
-      button.setScale(button.scale * 0.95);
+
+    button.on("pointerdown", () => {
+      button.setScale(0.9);
     });
-    
-    hitZone.on("pointerup", () => {
-      button.setScale(button.scale / 0.95);
-      
-      // Play sound effect
+
+    button.on("pointerup", () => {
+      button.setScale(1.0);
       this.sound.play("click");
-      
-      // Executa o callback passado para este botão
-      if (callback) {
-        callback();
-      }
+      callback();
     });
+
+    return button;
   }
   
   private styleText(text: Phaser.GameObjects.Text, style: Phaser.Types.GameObjects.Text.TextStyle) {
