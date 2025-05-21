@@ -189,10 +189,15 @@ export class LoginScene extends Scene {
   }
   
   private createBottomButtons() {
-    // Bottom buttons
-    const accountButton = this.createButton(120, this.cameras.main.height - 50, "blue-button", "Account");
-    const privacyButton = this.createButton(320, this.cameras.main.height - 50, "blue-button", "Privacy Policy");
-    const quitButton = this.createButton(this.cameras.main.width - 100, this.cameras.main.height - 50, "gold-button", "Quit");
+    // Bottom buttons - exatamente como na imagem de referência
+    const accountButton = this.createButton(120, this.cameras.main.height - 50, "account-button", "Account");
+    const privacyButton = this.createButton(320, this.cameras.main.height - 50, "privacy-button", "Privacy Policy");
+    const quitButton = this.createButton(this.cameras.main.width - 100, this.cameras.main.height - 50, "quit-button", "Quit");
+    
+    // Estilizando os textos dos botões
+    this.styleText(accountButton.getAt(1) as Phaser.GameObjects.Text, { fontSize: "16px" });
+    this.styleText(privacyButton.getAt(1) as Phaser.GameObjects.Text, { fontSize: "16px" });
+    this.styleText(quitButton.getAt(1) as Phaser.GameObjects.Text, { fontSize: "16px", fontStyle: "bold" });
     
     this.setupButtonInteraction(accountButton, () => {
       console.log("Account button clicked");

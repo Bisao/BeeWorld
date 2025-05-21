@@ -9,7 +9,7 @@ export class PreloadScene extends Scene {
     // Background and UI elements
     this.load.image("wood-panel", "/textures/wood.jpg");
     this.load.image("grass-texture", "/textures/grass.png");
-    this.load.image("heartwood-title", "/assets/heartwood-title.png");
+    // Removemos o carregamento da imagem do título que estava causando erro
     this.load.image("apple-icon", "/assets/apple-icon.svg");
     this.load.image("google-icon", "/assets/google-icon.svg");
     this.load.image("discord-icon", "/assets/discord-icon.svg");
