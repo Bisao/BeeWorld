@@ -25,8 +25,13 @@ export class PreloadScene extends Scene {
     this.load.image("priest-character", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==");
     
     // Load tree sprites
-    ["tree1", "tree2", "tree3", "tree4", "tree5", "pine1", "pine2", "bush1", "bush2", "bush3"].forEach(key => {
+    ["tree1", "tree2", "tree3", "tree4", "tree5", "tree6", "pine1", "pine2", "pine3"].forEach(key => {
         this.load.image(key, `/textures/trees/${key}.png`);
+    });
+    
+    // Load grass tiles
+    ["grass1", "grass2", "grass3", "grass4"].forEach(key => {
+        this.load.image(key, `/textures/tiles/${key}.png`);
     });
     
     // Load stone variations
