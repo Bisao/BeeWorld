@@ -1,41 +1,30 @@
-
 import { Scene } from "phaser";
+import { ResourceManager } from "./managers/ResourceManager";
+import { PlayerManager } from "./managers/PlayerManager";
+import { UIManager } from "./managers/UIManager";
+import { LightingManager } from "./managers/LightingManager";
+import { GridManager } from "./managers/GridManager";
+import { InputManager } from "./managers/InputManager";
+import { EffectsManager } from "./managers/EffectsManager";
 
+/**
+ * Cena principal do jogo responsável pelo grid, recursos e jogador
+ */
 export class GameScene extends Scene {
-  private player!: Phaser.GameObjects.Sprite;
-  private gridSize = 64; // Tamanho de cada célula do grid
-  private movementKeys!: {
-    W: Phaser.Input.Keyboard.Key;
-    A: Phaser.Input.Keyboard.Key;
-    S: Phaser.Input.Keyboard.Key;
-    D: Phaser.Input.Keyboard.Key;
-  };
-  private isMoving: boolean = false;
-  private characterData: any;
-  private resources: Phaser.GameObjects.Sprite[] = [];
+  // Managers
+  private resourceManager!: ResourceManager;
+  private playerManager!: PlayerManager;
+  private uiManager!: UIManager;
+  private lightingManager!: LightingManager;
+  private gridManager!: GridManager;
+  private inputManager!: InputManager;
+  private effectsManager!: EffectsManager;
   
-  private resourceTypes = [
-    { key: 'tree1', frequency: 0.03 },
-    { key: 'tree2', frequency: 0.03 },
-    { key: 'tree3', frequency: 0.03 },
-    { key: 'tree4', frequency: 0.03 },
-    { key: 'tree5', frequency: 0.03 },
-    { key: 'pine1', frequency: 0.02 },
-    { key: 'pine2', frequency: 0.02 },
-    { key: 'bush1', frequency: 0.02 },
-    { key: 'bush2', frequency: 0.02 },
-    { key: 'bush3', frequency: 0.02 },
-    { key: 'stone1', frequency: 0.03 },
-    { key: 'stone2', frequency: 0.03 },
-    { key: 'stone3', frequency: 0.03 },
-    { key: 'stone4', frequency: 0.03 },
-    { key: 'stone5', frequency: 0.03 },
-    { key: 'stone6', frequency: 0.03 },
-    { key: 'stone7', frequency: 0.03 },
-    { key: 'stone8', frequency: 0.03 },
-    { key: 'stone9', frequency: 0.03 }
-  ];
-
+  // Configurações
+  private gridSize = 64;
+  private characterData: any;
+  private currentZoom: number = 1;
+  
   constructor() {
     super("GameScene");
   }
@@ -45,134 +34,91 @@ export class GameScene extends Scene {
   }
 
   create() {
-    // Criar grid com textura de grama
-    const gridSize = 20;
-    for (let i = 0; i < gridSize; i++) {
-      for (let j = 0; j < gridSize; j++) {
-        const tile = this.add.sprite(
-          i * this.gridSize + this.gridSize/2,
-          j * this.gridSize + this.gridSize/2,
-          'grass-texture'
-        );
-        tile.setDisplaySize(this.gridSize, this.gridSize);
-        tile.setDepth(0); // Base layer
-        
-        // Gerar recursos aleatoriamente em tiles válidos
-        if (i > 0 && i < gridSize-1 && j > 0 && j < gridSize-1) {  // Evitar bordas
-          const chance = Math.random();
-          let resourceAdded = false;
-          
-          for (const resource of this.resourceTypes) {
-            if (!resourceAdded && chance < resource.frequency) {
-              const resourceSprite = this.add.sprite(
-                i * this.gridSize + this.gridSize/2,
-                j * this.gridSize + this.gridSize/2,
-                resource.key
-              );
-              resourceSprite.setDisplaySize(this.gridSize * 0.8, this.gridSize * 0.8);
-              resourceSprite.setDepth(2);
-              this.resources.push(resourceSprite);
-              resourceAdded = true;
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    // Criar linhas do grid
-    this.createGrid();
-
-    // Criar player no centro do grid
-    const centerX = (10 * this.gridSize); // Centro do grid (20x20)
-    const centerY = (10 * this.gridSize);
-    const spriteKey = this.characterData?.class?.toLowerCase() + '-character' || 'warrior-character';
-    this.player = this.add.sprite(centerX, centerY, spriteKey);
-    this.player.setOrigin(0.5);
-    this.player.setScale(this.gridSize / this.player.width); // Ajustar escala para corresponder ao tamanho do tile
-    this.player.setDepth(3); // Garantir que o player fique sobre os recursos e o grid
+    // Inicializar managers em ordem de dependência
+    this.initializeManagers();
     
-    console.log("Character loaded:", this.characterData);
-    console.log("Using sprite:", spriteKey);
+    // Criar elementos do jogo
+    this.createGameElements();
+    
+    // Configurar câmera e controles
+    this.setupCamera();
+  }
 
-    // Configurar câmera para seguir o player de forma fixa
-    this.cameras.main.startFollow(this.player, true, 1, 1);
-    this.cameras.main.setLerp(1); // Remove suavização
-    this.cameras.main.setDeadzone(0, 0); // Remove zona morta
+  /**
+   * Inicializa todos os managers do jogo
+   */
+  private initializeManagers(): void {
+    // Gerenciador de iluminação (deve ser o primeiro para criar camadas de luz)
+    this.lightingManager = new LightingManager(this, this.gridSize);
+    
+    // Gerenciador de grid
+    this.gridManager = new GridManager(this, this.gridSize);
+    
+    // Gerenciador de recursos
+    this.resourceManager = new ResourceManager(this, this.gridSize);
+    
+    // Gerenciador de jogador
+    this.playerManager = new PlayerManager(this, this.gridSize, this.characterData);
+    
+    // Gerenciador de UI
+    this.uiManager = new UIManager(this);
+    
+    // Gerenciador de efeitos
+    this.effectsManager = new EffectsManager(this, this.gridSize);
+    
+    // Gerenciador de entrada (deve ser o último para ter acesso a todos os outros managers)
+    this.inputManager = new InputManager(this, this.gridManager, this.playerManager);
+  }
+
+  /**
+   * Cria todos os elementos do jogo
+   */
+  private createGameElements(): void {
+    // Criar terreno e grid
+    this.gridManager.createTerrain(this.resourceManager.getResourceTypes().tiles);
+    this.gridManager.createGrid();
+    
+    // Criar recursos (árvores, pedras, etc)
+    this.resourceManager.createResources();
+    
+    // Criar jogador
+    this.playerManager.createPlayer();
+    
+    // Criar UI
+    this.uiManager.createUI(this.lightingManager.getTimeOfDay.bind(this.lightingManager));
+    
+    // Iniciar ciclo dia/noite
+    this.lightingManager.startDayNightCycle();
+    
+    // Adicionar efeitos de partículas
+    this.effectsManager.addParticleEffects();
+  }
+
+  /**
+   * Configura a câmera do jogo
+   */
+  private setupCamera(): void {
+    this.cameras.main.startFollow(this.playerManager.getPlayer(), true, 0.9, 0.9);
+    this.cameras.main.setLerp(0.1, 0.1);
+    this.cameras.main.setDeadzone(this.gridSize / 3, this.gridSize / 3);
     this.cameras.main.setZoom(1);
-
-    // Configurar teclas de movimento
-    this.movementKeys = this.input.keyboard.addKeys({
-      W: Phaser.Input.Keyboard.KeyCodes.W,
-      A: Phaser.Input.Keyboard.KeyCodes.A,
-      S: Phaser.Input.Keyboard.KeyCodes.S,
-      D: Phaser.Input.Keyboard.KeyCodes.D,
-      UP: Phaser.Input.Keyboard.KeyCodes.UP,
-      LEFT: Phaser.Input.Keyboard.KeyCodes.LEFT,
-      DOWN: Phaser.Input.Keyboard.KeyCodes.DOWN,
-      RIGHT: Phaser.Input.Keyboard.KeyCodes.RIGHT
-    }) as any;
+    
+    // Adicionar efeito de fade-in na inicialização
+    this.cameras.main.fadeIn(1000, 0, 0, 0);
   }
 
-  update() {
-    if (!this.isMoving) {
-      let dx = 0;
-      let dy = 0;
-
-      // Detectar movimento horizontal
-      if (this.movementKeys.A.isDown || this.movementKeys.LEFT.isDown) dx -= 1;
-      if (this.movementKeys.D.isDown || this.movementKeys.RIGHT.isDown) dx += 1;
-
-      // Detectar movimento vertical
-      if (this.movementKeys.W.isDown || this.movementKeys.UP.isDown) dy -= 1;
-      if (this.movementKeys.S.isDown || this.movementKeys.DOWN.isDown) dy += 1;
-
-      // Normalizar movimento diagonal
-      if (dx !== 0 && dy !== 0) {
-        const length = Math.sqrt(dx * dx + dy * dy);
-        dx /= length;
-        dy /= length;
-      }
-
-      if (dx !== 0 || dy !== 0) {
-        this.movePlayer(dx, dy);
-      }
-    }
+  /**
+   * Ajusta o zoom da câmera
+   */
+  public adjustZoom(amount: number): void {
+    this.currentZoom = Phaser.Math.Clamp(this.currentZoom + amount, 0.5, 2);
+    this.cameras.main.zoomTo(this.currentZoom, 300);
   }
 
-  private createGrid() {
-    const graphics = this.add.graphics();
-    graphics.lineStyle(2, 0x000000, 0.2);
-
-    // Criar linhas do grid
-    const gridSize = 20;
-    for (let i = 0; i <= gridSize; i++) {
-      // Linhas verticais
-      graphics.moveTo(i * this.gridSize, 0);
-      graphics.lineTo(i * this.gridSize, gridSize * this.gridSize);
-      // Linhas horizontais
-      graphics.moveTo(0, i * this.gridSize);
-      graphics.lineTo(gridSize * this.gridSize, i * this.gridSize);
-    }
-    graphics.strokePath();
-    graphics.setDepth(1); // Garantir que as linhas fiquem sobre a grama
-  }
-
-  private movePlayer(dx: number, dy: number) {
-    const newX = this.player.x + dx * this.gridSize;
-    const newY = this.player.y + dy * this.gridSize;
-
-    this.isMoving = true;
-
-    this.tweens.add({
-      targets: this.player,
-      x: newX,
-      y: newY,
-      duration: 200,
-      ease: 'Linear',
-      onComplete: () => {
-        this.isMoving = false;
-      }
-    });
+  update(): void {
+    // Atualizar managers
+    this.playerManager.update();
+    this.lightingManager.update();
+    this.effectsManager.update();
   }
 }

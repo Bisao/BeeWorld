@@ -59,7 +59,7 @@ export class BootScene extends Scene {
     });
     
     // Load essential assets needed for the loading screen
-    this.load.image("background", "/textures/wood.jpg");
+    // Background removed
   }
 
   create() {
